@@ -1,67 +1,95 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= content_tag :div, id: 'user-form', class: 'columns', data: { user: user.to_json(except: [:created_at, :updated_at]) } do %>
+  <div class="column">
+    <div id="form" class="card">
+      <div class="card-content">
+        <h2 class="title">Register User</h2>
+        
+        <label for="name">Name:</label>
+        <input type="text" v-model="user.name" class="input">
+              
+        <label for="email">Email:</label>
+        <input type="text" v-model="user.email" class="input">
+                
+        <label for="phone">Phone:</label>
+        <input type="text" v-model="user.phone" class="input">
+                
+        <label for="description">description:</label>
+        <textarea v-model="user.description" class="textarea"></textarea>
+                
+        <label for="exp1">Experience 1:</label>
+        <textarea v-model="user.exp1" class="textarea"></textarea>
+                
+        <label for="exp2">Experience 2:</label>
+        <textarea v-model="user.exp2" class="textarea"></textarea>
+                
+        <label for="exp3">Experience 3:</label>
+        <textarea v-model="user.exp3" class="textarea"></textarea>
+        
+        <label for="education">Education</label>
+        <textarea v-model="user.education" class="textarea"></textarea>
+                
+        <label for="extras">Extras</label>
+        <textarea v-model="user.extras" class="textarea"></textarea>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <label for="gender">Gender</label>
+        <select v-model="user.gender" class="select">
+          <option>Male</option>
+          <option>Female</option>
+          <option>other</option>
+        </select>
+      </div>
+      <div class="card-footer">
+        <button @click="saveUser" class="button is-link">Save CV</button>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div>
-    <%= form.label :gender, style: "display: block" %>
-    <%= form.text_field :gender %>
-  </div>
-
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
-  </div>
-
-  <div>
-    <%= form.label :exp1, style: "display: block" %>
-    <%= form.text_field :exp1 %>
-  </div>
-
-  <div>
-    <%= form.label :exp2, style: "display: block" %>
-    <%= form.text_field :exp2 %>
-  </div>
-
-  <div>
-    <%= form.label :exp3, style: "display: block" %>
-    <%= form.text_field :exp3 %>
-  </div>
-
-  <div>
-    <%= form.label :education, style: "display: block" %>
-    <%= form.text_field :education %>
-  </div>
-
-  <div>
-    <%= form.label :extras, style: "display: block" %>
-    <%= form.text_field :extras %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class='column is-two-thirds preview card'>
+    <div id="cv-preview" class="card-content">
+      <h3 class="center title name">{{ user.name }}</h3>
+      <p class="center subtitle"><b v-if="user.phone != null">Contact Phone:</b> {{ user.phone }}    <b v-if="user.email != null">Email:</b> {{ user.email }}    <b v-if="user.gender != null">Sexo:</b> {{ user.gender }}</p>
+ 
+      <div class="description">
+        <p class="subtitle" v-if="user.description != null">Description</p>
+        <p>
+          {{ user.description }}
+        </p>
+      </div>
+    
+      <div class="exp">
+        <p class="subtitle" v-if="user.exp1 != null">Experience 1</p>
+        <p>
+          {{ user.exp1 }}
+        </p>
+      </div>
+    
+      <div class="exp">
+        <p class="subtitle" v-if="user.exp2 != null">Experience 2</p>
+        <p>
+          {{ user.exp2 }}
+        </p>
+      </div>
+    
+      <div class="exp">
+        <p class="subtitle" v-if="user.exp3 != null">Experience 3</p>
+        <p>
+          {{ user.exp3 }}
+        </p>
+      </div>
+    
+      <div class="education">
+        <p class="subtitle" v-if="user.education != null">Education</p>
+        <p>
+          {{ user.education }}
+        </p>
+      </div>
+    
+      <div class="extras">
+        <p class="subtitle" v-if="user.extras != null">Extras</p>
+        <p>
+          {{ user.extras }}
+        </p>
+      </div>
+    </div>
   </div>
 <% end %>
